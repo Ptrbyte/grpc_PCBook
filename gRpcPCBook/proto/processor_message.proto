@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option go_package ="./pb";
+
+package pb;
+
+import "proto/memory_message.proto";
+
+message CPU {
+    //Brand of the CPU 
+    string brand = 1;
+    //Name of the CPU
+    string name  = 2;
+    //Cores number of the CPU
+    uint32 number_cores = 3;
+    // Threads number of the CPU
+    uint32 number_threads = 4;
+    double min_ghz = 5;
+    double max_ghz = 6;
+
+}
+
+message GPU {
+    string brand = 1;
+    string name  = 2;
+    double min_ghz = 3;
+    double max_ghz = 4;
+    //memory
+    Memory memory = 5;
+ 
+
+}
+

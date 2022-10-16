@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+option go_package ="./pb";
+
+package pb;
+
+import "proto/laptop_message.proto";
+import "proto/filter_message.proto";
+
+message CreateLaptopRequest {
+    Laptop laptop = 1;
+    
+}
+
+message CreateLaptopResponse {
+    string id = 1;
+}
+
+message SerachLaptopRequest {
+    Filter filter = 1;
+}
+
+message SerachLaptopResponse {
+    Laptop laptop = 1;
+}
+
+message UpLoadImageResquest {
+    oneof data {
+        ImageInfo info = 1;
+        bytes chunk_data = 2; 
+    }
+}
+
+message ImageInfo {
+    string laptop_id = 1;
+    string Image_type = 2;
+}
+
+message UploadImageResponse {
+    string id = 1;
+    uint32 size = 2;
+}
+
+message RateLaptopRequest{
+    string laptop_id = 1;
+    double scores = 2;
+}
+
+message RateLaptopResponse {
+    string laptop_id = 1;
+    uint32 rated_count = 2;
+    double average_score = 3;
+}
+
+service LaptopService {
+    rpc CreateLaptop(CreateLaptopRequest) returns (CreateLaptopResponse){};
+    rpc SerachLaptop(SerachLaptopRequest) returns (stream SerachLaptopResponse){};
+    rpc UploadImage(stream UpLoadImageResquest) returns (UploadImageResponse) {};
+    rpc RateLaptop(stream RateLaptopRequest) returns (stream RateLaptopResponse){};
+}
